@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+	box-sizing: border-box;
+    }
+/*Fonts*/
+/* @font-face {
+    font-family: veganFont;
+    src: url(font\VeganStyleFont.ttf);
+ } */
+h1, h2, h3, h4, h5, h6{
+    font-family: "Gloria Hallelujah";
+    color: #282623;
+}
+p, li, label{
+    font-family: "Montserrat";
+    color: #282623;
+}
+h1{
+    text-align: center;
+    padding: 10px;
+}
+/*buttons*/
+.btn-menu{
+    color: #fff!important;
+    border-color: #fff!important;
+}
+.btn-outline-success {
+    color: #B35B46;
+    border-color: #B35B46;
+  } 
+.btn-outline-success:hover, .btn-menu:hover {
+  color: #fff;
+  background-color: #B35B46;
+  border-color: #B35B46;
+}
+.btn-outline-info {
+  color: #000D32;
+  border-color: #000D32;
+}
+.btn-outline-info:hover {
+  color: #fff;
+  background-color: #000D32;
+  border-color: #000D32;
+}
