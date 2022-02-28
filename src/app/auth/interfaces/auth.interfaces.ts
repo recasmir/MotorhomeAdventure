@@ -7,16 +7,22 @@ export interface Member{
     age?:string,
     gender?:string,
     traveller:string,
-    nChildren?:string,
+    nChildren?:number,
     aChildren?:string,
     dog?:string,
     transport:string,
-    trip?:string[]
-    // more?:string
+    trip?:string[],
+    about?:string,
+    terms:boolean
 }
 
 export interface Trip{
     push(value: Trip):Trip;
     id:number,
     name:string
+}
+
+export interface loggedMember{
+    email:string,
+    pwd:string
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Member, Trip } from '../../interfaces/auth.interfaces';
-
-
+import { AuthService } from '../../services/auth.service';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-register',
@@ -13,35 +14,46 @@ export class RegisterComponent {
 
   ageList:string[]=['<25','26-35','36-45','46-55','>55'];
   genderList:string[]=['female','male','other'];
-  travellerList:string[]=['Family with kids','Couple','Individuals','Group of friends']
+  travellerList:string[]=['Couple with kids', 'Single parent with kids', 'Couple','Individuals','Group of friends']
   transportList:string[]=['Motorhome','Big camper > 4m','Small camper < 4m']
   tripList = [
     { name: 'Weekend trips'},
     { name: 'Week trips'},
     { name: 'Long adventures, 2 weeks+'}
   ];
+  locationList:string[]=["Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León", "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana", "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias", "Región de Murcia"]
+  showKids:boolean=false;
 
   registrationForm:FormGroup=this.fb.group({
     email:['', [Validators.required, Validators.email]],
     pwd:['', [Validators.required, Validators.minLength(6)]],
     repwd:['', [Validators.required, Validators.minLength(6)]],
+    location:['', Validators.required],
     fName:['', Validators.required],
     lName:['', Validators.required],
     age:[''],
     gender:[''],
     traveller:['', Validators.required],
-    nChildren:[''],
+    nChildren:[],
     aChildren:[''],
     dog:[''],
     transport:['', Validators.required],
     typeOfTrip: this.fb.array([]),
-    about:['']
+    about:[''],
+    terms:[false, Validators.requiredTrue]
   })
 
   registeredMembers:Member[]=[];
-  canClose:boolean=true;
+  firstName:string='';
+  lastName:string='';
 
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder,
+              private modalService:ModalService,
+              private router: Router,
+              private authService:AuthService) {
+                
+      this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
+              }
   
   get age() { return this.registrationForm.get('age') }
 
@@ -50,6 +62,8 @@ export class RegisterComponent {
   get traveller() { return this.registrationForm.get('traveller') }
 
   get transport() { return this.registrationForm.get('transport') }
+
+  get location() { return this.registrationForm.get('location') }
 
   changeValue(e: any,value:any) {
     value?.setValue(e.target.value, {
@@ -64,23 +78,43 @@ export class RegisterComponent {
       } 
   }
 
+  showKidsInfo(e:any){
+    let traveller=this.registrationForm.controls['traveller'].value;
+    if(traveller==='0: Couple with kids' || traveller==='1: Single parent with kids'){
+      this.showKids=true;
+    }else{
+      this.showKids=false;
+    }
+  }
+  
   register(){
 
     if(this.registrationForm.invalid){
       this.registrationForm.markAllAsTouched();
-      this.canClose=false;
       return
     }
-    this.canClose=true;
 
     const newMember= this.registrationForm.value;
     this.registeredMembers.push(newMember);
 
-    console.log('registeeredMembers',this.registeredMembers);
+    // this.firstName=this.registrationForm.controls['fName'].value;
+    // this.lastName=this.registrationForm.controls['lName'].value;
+
+    localStorage.setItem('Registered members', JSON.stringify(this.registeredMembers));
+
+    this.authService.auth_open=true;
+
+    this.router.navigate(['./members/profile']);
+
+    console.log('registeredMembers',this.registeredMembers);
     this.registrationForm.reset();
   }
 
   validField(inputField:string){
     return this.registrationForm.controls[inputField].errors && this.registrationForm.controls[inputField].touched;
+  }
+
+  openLogInModal(){
+    this.modalService.openLogInModal();
   }
 }

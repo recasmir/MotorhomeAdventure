@@ -1,0 +1,22 @@
+footer *{
+ color: rgba(255, 255, 255, 0.9);
+}
+
+h4{
+    margin-bottom: 18px;
+}
+
+li{
+    display: inline;
+    text-decoration: none;
+    padding:10px 20px;
+    margin-top:20px;
+}
+
+/* a{
+    text-decoration: none;
+} */
+a:hover{
+    font-weight: bold;
+    color:#B35B46;
+}

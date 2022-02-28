@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './pages/blog/blog.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RentalComponent } from './pages/rental/rental.component';
+import { GuardsGuard } from './auth/guards.guard';
 
 
 const routes: Routes = [
@@ -13,7 +14,9 @@ const routes: Routes = [
   },
   {
     path:'members',
-    loadChildren:() => import('./members/members.module').then(m => m.MembersModule)
+    loadChildren:() => import('./members/members.module').then(m => m.MembersModule),
+    canActivate:[GuardsGuard],
+    canLoad:[GuardsGuard]
   },
   {
     path:'resources',

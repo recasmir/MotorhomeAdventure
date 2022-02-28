@@ -1,207 +1,230 @@
-<!-- <div class="modal fade" id="registerForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <!-- <button type="button" class="close text-end pe-4 pt-3" data-dismiss="modal" aria-label="Close" (click)="close()">
-            <span aria-hidden="true">&times;</span>
-          </button> -->
-        <button type="button" class="close text-end pe-4 pt-3" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="modal-header justify-content-center pt-0" style="display: grid;">
-          <h2 class="modal-title" id="exampleModalLabel">Join our community</h2>
-        </div>
-        <div class="modal-body px-5">
-          <form action="registration.html" 
-                method="POST" 
-                id="registrationFormId"
-                (ngSubmit)="register()" 
-                [formGroup]="registrationForm">
-              <div class="row">
-                  <div class="col-12 col-md-4 col-xl-3">
-                      <label for="email"><span class="text-danger">* </span>eMail:</label><br>
-                      
-                      <input class="form-control" 
-                             type="email" 
-                             formControlName="email">
+<div class="container-lg margin-top-nav">
+    <div class="row pt-0">
+        <h2 class="my-3 pb-3 text-center">Join our community</h2>
+    </div>
+    <div class="px-5">
+        <form action="registration.html" 
+            method="POST" 
+            id="registrationFormId"
+            (ngSubmit)="register()" 
+            [formGroup]="registrationForm">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 pt-2">
+                    <label for="email"><span class="text-danger">* </span>eMail:</label><br>
+                    
+                    <input class="form-control" 
+                            type="email" 
+                            formControlName="email">
 
-                      <span class="text-danger"
-                            *ngIf="validField('email')">
-                            Email is required. Please, make sure your email address is correct.
-                        </span>
-                  </div>
-                  <div class="col-12 col-md-4 col-xl-3">
-                      <label for="pwd"><span class="text-danger">* </span>Password:</label><br>
-                      
-                      <input class="form-control" 
-                             type="password" 
-                             formControlName="pwd">
+                    <span class="text-danger"
+                        *ngIf="validField('email')">
+                        Email is required. Please, make sure your email address is correct.
+                    </span>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 pt-2">
+                    <label for="pwd"><span class="text-danger">* </span>Password:</label><br>
+                    
+                    <input class="form-control" 
+                            type="password" 
+                            formControlName="pwd">
 
-                      <span class="text-danger"
-                            *ngIf="validField('pwd')">
-                             Password is required and needs at least 6 characters.
-                      </span>
-                  </div>
-                  <div class="col-12 col-md-4 col-xl-3">
-                      <label for="repwd"><span class="text-danger">* </span>Repeat password:</label><br>
-                      
-                      <input class="form-control"
-                             type="password" 
-                             formControlName="repwd">
-
-                      <span class="text-danger"
-                             *ngIf="validField('repwd')">
-                              Password doesn't match.
-                       </span>
-                  </div>
-              </div>
-            <div class="row mt-4">
-                <div class="col-12 col-md-3">
-                    <label for="fname"><span class="text-danger">* </span>First name:</label><br>
+                    <span class="text-danger"
+                        *ngIf="validField('pwd')">
+                            Password is required and needs at least 6 characters.
+                    </span>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 pt-2">
+                    <label for="repwd"><span class="text-danger">* </span>Repeat password:</label><br>
                     
                     <input class="form-control"
-                            type="text"
-                            formControlName="fName"> 
+                            type="password" 
+                            formControlName="repwd">
 
                     <span class="text-danger"
-                            *ngIf="validField('fName')">
-                            First name is required.
+                            *ngIf="validField('repwd')">
+                            Password doesn't match.
                     </span>
                 </div>
-                <div class="col-12 col-md-3">
-                    <label for="lname"><span class="text-danger">* </span>Last name:</label><br>
-
-                    <input class="form-control" 
-                            type="text" 
-                            formControlName="lName">
-                            
-                    <span class="text-danger"
-                            *ngIf="validField('lName')">
-                            Last name is required.
-                    </span>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="form-group">
-                        <label class="form-label" for="age">Age:</label>
-                        <select class="form-control"    
-                                formControlName="age"
-                                (change)="changeValue($event,age)">
-
-                            <option *ngFor="let age of ageList" [ngValue]="age">{{age}}</option>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <label for="gender">Gender:</label><br>
-                    <select class="form-control"    
-                            formControlName="gender"
-                            (change)="changeValue($event,gender)">>
-                        <option *ngFor="let gender of genderList" [ngValue]="gender">{{gender}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12 col-md-3">
-                    <label for="traveller"><span class="text-danger">* </span>Type of traveller:</label><br>
-                    <select class="form-control"    
-                            formControlName="traveller"
-                            (change)="changeValue($event,traveller)">>
-                        <option *ngFor="let traveller of travellerList" [ngValue]="traveller">{{traveller}}</option>
-                    </select>
-                    <span class="text-danger"
-                        *ngIf="validField('traveller')">
-                        Type of traveller is required.
-                    </span>
-                </div>
-                <div class="col-12 col-md-3">
-                    <label for="nkids">Number of kids:</label><br>
+                <div class="col-12 col-sm-6 col-md-3 pt-2">
+                    <label for="repwd"><span class="text-danger">* </span>Location</label><br>
                     
-                    <input class="form-control" 
-                            type="text"
-                            formControlName="nChildren">
-                </div>
-                <div class="col-12 col-md-3">
-                    <label for="akids">Age & gender of kids:</label><br>
-
-                    <input class="form-control" 
-                            type="text"
-                            formControlName="aChildren">
-
-                </div>
-                <div class="col-12 col-md-3">
-                    <label>Do you travel with a dog?</label><br>
-                    <input class="form-check-input" 
-                           type="radio" 
-                           formControlName="dog" 
-                           value="yes"
-                           id="dogYes">
-                    <label class="form-cjeck-label" 
-                           for="dogYes"> Yes</label>
-
-                    <input class="form-check-input" 
-                           type="radio" 
-                           formControlName="dog" 
-                           value="no"
-                           id="dogNo">
-                    <label class="form-cjeck-label" 
-                           for="dogNo"> No</label>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12 col-md-3">
-                    <label for="transport"><span class="text-danger">* </span>Type of transport:</label><br>
-                    <select class="form-control"    
-                            formControlName="transport"
-                            (change)="changeValue($event,transport)">>
-                        <option *ngFor="let transport of transportList" [ngValue]="transport">{{transport}}</option>
+                    <select class="form-control"
+                            type="text" 
+                            formControlName="location"
+                            (change)="changeValue($event,location)">
+                            
+                    <option *ngFor="let location of locationList" [ngValue]="location">{{location}}</option>
                     </select>
+
                     <span class="text-danger"
-                        *ngIf="validField('transport')">
-                        Type of transport is required.
+                            *ngIf="validField('location')">
+                            Location is required.
                     </span>
                 </div>
-                <div class="col-12 col-md-9">
-                    <div class="form-group">
-                    <label for="trip">I'd like to find sombody for:</label>
-                    <div *ngFor="let trip of tripList">
-                        <label>
-                        <input type="checkbox" [value]="trip.name" (change)="changeTrip($event)" />
-                        {{trip.name}}
-                        </label>
-                    </div>
-                </div>
+            </div>
+        <div class="row mt-md-2">
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label for="fname"><span class="text-danger">* </span>First name:</label><br>
+                
+                <input class="form-control"
+                        type="text"
+                        formControlName="fName"> 
+
+                <span class="text-danger"
+                        *ngIf="validField('fName')">
+                        First name is required.
+                </span>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label for="lname"><span class="text-danger">* </span>Last name:</label><br>
+
+                <input class="form-control" 
+                        type="text" 
+                        formControlName="lName">
+                        
+                <span class="text-danger"
+                        *ngIf="validField('lName')">
+                        Last name is required.
+                </span>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                    <label for="age">Age:</label>
+                    <select class="form-control"    
+                            formControlName="age"
+                            (change)="changeValue($event,age)">
+                    <option *ngFor="let age of ageList" [ngValue]="age">{{age}}</option>
+                    </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label for="gender">Gender:</label><br>
+                <select class="form-control"    
+                        formControlName="gender"
+                        (change)="changeValue($event,gender)">>
+                    <option *ngFor="let gender of genderList" [ngValue]="gender">{{gender}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-md-2">
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label for="traveller"><span class="text-danger">* </span>Type of traveller:</label><br>
+                <select class="form-control"    
+                        formControlName="traveller"
+                        (change)="changeValue($event,traveller); showKidsInfo($event)">
+                    <option *ngFor="let traveller of travellerList" [ngValue]="traveller">{{traveller}}</option>
+                </select>
+                <span class="text-danger"
+                    *ngIf="validField('traveller')">
+                    Type of traveller is required.
+                </span>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label>Do you travel with a dog?</label><br>
+                <input class="form-check-input" 
+                        type="radio" 
+                        formControlName="dog" 
+                        value="yes"
+                        id="dogYes">
+                <label class="form-cjeck-label ps-1" 
+                        for="dogYes"> Yes</label>
+
+                <input class="form-check-input ms-3" 
+                        type="radio" 
+                        formControlName="dog" 
+                        value="no"
+                        id="dogNo">
+                <label class="form-cjeck-label ps-1" 
+                        for="dogNo"> No</label>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <label for="transport"><span class="text-danger">* </span>Type of transport:</label><br>
+                <select class="form-control"    
+                        formControlName="transport"
+                        (change)="changeValue($event,transport)">>
+                    <option *ngFor="let transport of transportList" [ngValue]="transport">{{transport}}</option>
+                </select>
+                <span class="text-danger"
+                    *ngIf="validField('transport')">
+                    Type of transport is required.
+                </span>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2">
+                <div class="form-group">
+                <label for="trip">I'd like to find sombody for:</label>
+                <div *ngFor="let trip of tripList">
+                    <label>
+                    <input class="ps-1" type="checkbox" [value]="trip.name" (change)="changeTrip($event)" />
+                    {{trip.name}}
+                    </label>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-12">
-                    <label for="about">Tell us a bit more about you.</label><br>
-                    <textarea class="form-control"
-                              formControlName="about" 
-                              rows="5" 
-                              cols="100">
-                    </textarea>
+            </div>
+        </div>
+        <div class="row mt-md-2"
+             *ngIf="showKids">
+            <div class="col-12 col-sm-6 col-md-3 pt-2 pt-sm-0">
+                <label for="nkids">Number of kids:</label><br>
+                
+                <input class="form-control" 
+                        type="number"
+                        formControlName="nChildren">
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 pt-2 pt-sm-0">
+                <label for="akids">Age & gender of kids:</label><br>
+
+                <input class="form-control" 
+                        type="text"
+                        formControlName="aChildren">
+
+            </div>
+        </div>
+        <div class="row mt-md-2">
+            <div class="col-12 pt-2">
+                <label for="about">Tell us a bit more about you.</label><br>
+                <textarea class="form-control"
+                            formControlName="about" 
+                            rows="5" 
+                            cols="100">
+                </textarea>
+            </div>
+        </div>
+        <div class="row mt-md-2">
+            <div class="col-12 pt-2">
+                <div class="form-check">
+                    <input class="form-check-input" 
+                            type="checkbox" 
+                            formControlName="terms"
+                            id="terms">
+
+                    <label class="form-check-label" for="Terms"><span class="text-danger">* </span><a href="">Terms and conditions</a></label><br>
+                    <span class="text-danger"
+                        *ngIf="validField('terms')">
+                        Accepting terms and conditions is required to become a member.
+                </span>
                 </div>
             </div>
-        </form>
-        </div>                    
-        <div class="modal-footer d-flex justify-content-center">
-            <!-- <button class="btn btn-outline-success my-2"
-                    type="submit"
-                    (click)="signUp(); canClose===true? close():''"
-                    >Create Account</button> -->
-                    <button class="btn btn-outline-success my-2"
-                    type="submit"
-                    (click)="register()"
-                    >Create Account</button>
-        <!-- <p class="col-12 text-center py-3">Already have an account? <span><a (click)="openLogInModal(); close()">Log in</a></span> </p> -->
         </div>
-          
+    </form>
+    </div>                    
+    <div class="row ">
+        <div class="col-12 d-flex justify-content-center">
+                <button class="btn btn-outline-primary my-2"
+                type="submit"
+                (click)="register()"
+                >Create Account</button>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <p class="py-3">Already have an account? <a (click)="openLogInModal()">Log in</a> </p>
         </div>
-        <div class="row">
-          <div class="col-12 ps-5">
-            <p class="text-danger" style="font-size: 10px;">*this field is required</p>
-          </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ps-5">
+            <p class="text-danger" style="font-size: 12px;">*this field is required</p>
         </div>
-      </div>
-<!-- </div> -->
+    </div>
+    
+</div>
+
  

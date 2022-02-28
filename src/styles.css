@@ -23,21 +23,43 @@ h1{
     color: #fff!important;
     border-color: #fff!important;
 }
-.btn-outline-success {
-    color: #B35B46;
-    border-color: #B35B46;
-  } 
-.btn-outline-success:hover, .btn-menu:hover {
+
+.btn-menu:hover {
   color: #fff;
   background-color: #B35B46;
   border-color: #B35B46;
 }
-.btn-outline-info {
-  color: #000D32;
-  border-color: #000D32;
+
+.btn-outline-primary{
+  color:#000D32!important;
+  border-color: #000D32!important;
 }
-.btn-outline-info:hover {
-  color: #fff;
+
+.btn-outline-primary:hover{
+  color:#fff!important;
+  background-color: #000D32!important;
+}
+
+.btn-outline-info{
+  color:#B35B46!important;
+  border-color: #B35B46!important;
+}
+.btn-outline-info:hover{
+  color: #fff!important;
+  background-color: #B35B46!important;
+}
+
+.bg-blue{
   background-color: #000D32;
-  border-color: #000D32;
+}
+
+.margin-top-nav{
+  margin-top: 100px;
+}
+
+.center {
+  display: block;
+  margin:auto;
+  padding:100px 0;
+  width: 50%;
 }

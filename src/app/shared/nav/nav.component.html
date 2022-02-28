@@ -7,28 +7,35 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="#">HOME</a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
-              routerLink="/rental">Rental</a>
+              routerLink="/rental">RENTAL</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Resources
+              RESOURCES
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Stopovers</a>
-              <a class="dropdown-item" href="#">Online Shops</a>
+              <a class="dropdown-item" routerLink="/resources/stopovers">STOPOVERS</a>
+              <a class="dropdown-item" routerLink="/resources/shops">SHOPS</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+            <a class="nav-link" routerLink="/blog">BLOG</a>
           </li>
         </ul>
-        <div class="my-2 my-lg-0 justify-self-end">
-          <button style="margin-right: 10px;" class="btn btn-menu my-2 my-sm-0" data-toggle="modal" data-target="#signInForm">Sign in</button>
-          <button class="btn btn-menu my-2 my-sm-0" data-toggle="modal" data-target="#registerForm">Register</button>
+        <div class="my-2 my-lg-0 justify-self-end pe-4">
+          <button style="margin-right: 10px;" 
+                  class="btn btn-menu my-2 my-sm-0" 
+                  data-toggle="modal" 
+                  data-target="#signInForm"
+                  (click)="openLogInModal()">Log in</button>
+          <button class="btn btn-menu my-2 my-sm-0"
+                  [routerLink]="['./auth/register']" >Register</button>
         </div>
       </div>
     </nav>
+
+    <!-- data-toggle="modal" data-target="#registerForm" -->
