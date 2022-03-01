@@ -12,4 +12,5 @@ export class PartnersHomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
 }

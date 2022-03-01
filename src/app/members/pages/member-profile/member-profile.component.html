@@ -1,10 +1,27 @@
-<div class="container-lg row">
-    <div class="col-12">
-        <img class="img-fluid center" src="./assets/img/under-construction.png" alt="Under Construction" >
-        <!-- <h2>Welcome {{fName}}</h2>
-        <h3>Details</h3>
-        <p>First Name: {{fName}}</p>
-        <p>Last Name: {{lName}}</p>
-        <p>You live in: {{location}}</p> -->
+<div class="container-lg">
+    <div class="col-12 margin-top-nav text-center border-info">
+        <h2>Welcome {{memberInfo.fName}}</h2>
+        <hr style="color: #B35B46">
+    </div>
+    <div class="row">
+    <div class="col-12 col-md-6">
+        <h4>Details</h4>
+        <p>First Name: {{memberInfo.fName}}</p>
+        <p>Last Name: {{memberInfo.lName}}</p>
+        <p>eMail: {{memberInfo.email}}</p>
+        <p>You live in: {{memberInfo.location}}</p>
+        <p>Age: {{memberInfo.age}}</p>
+        <p>Gender: {{memberInfo.gender}}</p>
+        <p>Type of traveller: {{memberInfo.traveller}}</p>
+        <p *ngIf="children">Number of kids: {{memberInfo.nChildren}}</p>
+        <p *ngIf="children">Age and gender of the kids: {{memberInfo.aChildren}}</p>
+        <p>Type of transport: {{memberInfo.transport}}</p>
+        <p>Travel with dog:{{memberInfo.dog}}</p>
+        <p>You would like these types of trips: {{memberInfo.trip}}</p>
+        <p>More info about you: {{memberInfo.about}}</p>
+    </div>
+    <div class="col-12 col-md-6">
+        <app-add-ad></app-add-ad>
+    </div>
     </div>
     </div>

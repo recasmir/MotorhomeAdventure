@@ -49,6 +49,19 @@ h1{
   background-color: #B35B46!important;
 }
 
+.btn-info{
+  color: #fff!important;
+  background-color: #B35B46!important;
+  border-color: #B35B46!important;
+}
+
+.btn-info:hover{
+  color: #000D32!important;
+}
+
+.border-info{
+  border-color: #B35B46!important;
+}
 .bg-blue{
   background-color: #000D32;
 }

@@ -11,6 +11,10 @@
           </li>
           <li class="nav-item">
             <a class="nav-link"
+              routerLink="/ads">ADS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
               routerLink="/rental">RENTAL</a>
           </li>
           <li class="nav-item dropdown">
@@ -26,7 +30,26 @@
             <a class="nav-link" routerLink="/blog">BLOG</a>
           </li>
         </ul>
+        <ul class="navbar-nav me-auto border border-info"
+            *ngIf="showMemberZone">
+          <li class="nav-item active">
+            <a class="nav-link" 
+            routerLink="/members/profile">PROFILE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              routerLink="/members/ads">ADS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" 
+               routerLink="/members/match">MATCH</a>
+          </li>
+        </ul>
         <div class="my-2 my-lg-0 justify-self-end pe-4">
+          <button style="margin-right: 10px;"
+                  class="btn btn-info my-2 my-sm-0"
+                  (click)="goToMembers()"
+                  [routerLink]="['./members/profile']" >Members</button>
           <button style="margin-right: 10px;" 
                   class="btn btn-menu my-2 my-sm-0" 
                   data-toggle="modal" 

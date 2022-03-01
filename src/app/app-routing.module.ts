@@ -4,6 +4,7 @@ import { BlogComponent } from './pages/blog/blog.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RentalComponent } from './pages/rental/rental.component';
 import { GuardsGuard } from './auth/guards.guard';
+import { AdsComponent } from './pages/ads/ads.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
     path:'resources',
     loadChildren:() => import('./resources/resources.module').then(m => m.ResourcesModule)
   },
+  {path:'ads', component:AdsComponent},
   {path:'rental', component:RentalComponent},
   {path:'blog', component:BlogComponent},
   {path:'**', redirectTo:''},

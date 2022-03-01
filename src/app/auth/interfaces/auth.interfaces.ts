@@ -2,6 +2,7 @@ export interface Member{
     email:string,
     pwd:string,
     repwd:string,
+    location:string,
     fName:string,
     lName:string,
     age?:string,

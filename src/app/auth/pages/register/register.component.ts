@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PersonalInfoService } from 'src/app/services/personal-info.service';
 import { Member, Trip } from '../../interfaces/auth.interfaces';
 import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
@@ -17,12 +18,12 @@ export class RegisterComponent {
   travellerList:string[]=['Couple with kids', 'Single parent with kids', 'Couple','Individuals','Group of friends']
   transportList:string[]=['Motorhome','Big camper > 4m','Small camper < 4m']
   tripList = [
-    { name: 'Weekend trips'},
-    { name: 'Week trips'},
-    { name: 'Long adventures, 2 weeks+'}
+    { name: ' Weekend trips'},
+    { name: ' Week trips'},
+    { name: ' Long adventures - 2 weeks+'}
   ];
   locationList:string[]=["Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León", "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana", "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias", "Región de Murcia"]
-  showKids:boolean=false;
+  
 
   registrationForm:FormGroup=this.fb.group({
     email:['', [Validators.required, Validators.email]],
@@ -38,19 +39,21 @@ export class RegisterComponent {
     aChildren:[''],
     dog:[''],
     transport:['', Validators.required],
-    typeOfTrip: this.fb.array([]),
+    trip: this.fb.array([]),
     about:[''],
     terms:[false, Validators.requiredTrue]
   })
 
   registeredMembers:Member[]=[];
+  showKids:boolean=false;
   firstName:string='';
   lastName:string='';
 
   constructor(private fb:FormBuilder,
               private modalService:ModalService,
               private router: Router,
-              private authService:AuthService) {
+              private authService:AuthService,
+              private personalInfoService:PersonalInfoService) {
                 
       this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
               }
@@ -72,7 +75,7 @@ export class RegisterComponent {
   }
 
   changeTrip(e:any) {
-    const trips: FormArray = this.registrationForm.get('typeOfTrip') as FormArray;
+    const trips: FormArray = this.registrationForm.get('trip') as FormArray;
     if (e.target.checked) {
       trips.push(new FormControl(e.target.value));
       } 
@@ -103,6 +106,8 @@ export class RegisterComponent {
     localStorage.setItem('Registered members', JSON.stringify(this.registeredMembers));
 
     this.authService.auth_open=true;
+
+    this.personalInfoService.personalInfo=newMember;
 
     this.router.navigate(['./members/profile']);
 

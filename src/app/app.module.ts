@@ -23,6 +23,7 @@ import { ResourcesHomeComponent } from './components/resources-home/resources-ho
 import { RentalHomeComponent } from './components/rental-home/rental-home.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
+import { AdsComponent } from './pages/ads/ads.component';
 
 
 
@@ -41,6 +42,7 @@ import { RouterModule } from '@angular/router';
     ResourcesHomeComponent,
     RentalHomeComponent,
     ContactComponent,
+    AdsComponent,
 
   ],
   imports: [
