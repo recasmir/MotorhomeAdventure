@@ -1,0 +1,14 @@
+<div class="card mt-3"
+    *ngFor="let ad of advert">
+    <div class="card-header">
+        Title: {{ad.titleAdvert}}
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{ad.bodyAdvert}}</p>
+    </div>
+    <div class="card-footer text-muted text-end py-0">
+        <small>{{ad.date | date}}</small>
+    </div>
+</div>
+
+

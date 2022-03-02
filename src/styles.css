@@ -76,3 +76,7 @@ h1{
   padding:100px 0;
   width: 50%;
 }
+
+.footer-to-bottom{
+  height: 100vh;
+}

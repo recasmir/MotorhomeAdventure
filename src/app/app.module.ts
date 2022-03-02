@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,6 +25,8 @@ import { RentalHomeComponent } from './components/rental-home/rental-home.compon
 import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { AdsComponent } from './pages/ads/ads.component';
+
+import { MembersModule } from './members/members.module';
 
 
 
@@ -62,7 +65,8 @@ import { AdsComponent } from './pages/ads/ads.component';
         autoFocus: true,
         draggable: true
       }
-    })
+    }),
+    MembersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

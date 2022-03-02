@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PostedAdService } from '../../services/posted-ad.service';
 
 @Component({
-  selector: 'app-members-ads',
-  templateUrl: './members-ads.component.html',
-  styleUrls: ['./members-ads.component.css']
+  selector: 'app-single-ad',
+  templateUrl: './single-ad.component.html',
+  styleUrls: ['./single-ad.component.css']
 })
-export class MembersAdsComponent implements OnInit {
+export class SingleAdComponent implements OnInit {
+
 
   constructor(private postedAdService:PostedAdService) { }
 
@@ -14,10 +15,10 @@ export class MembersAdsComponent implements OnInit {
   }
 
   get advert(){
-    console.log(this.postedAdService.adsListServ)
+    // console.log(this.postedAdService.adsListServ)
     return this.postedAdService.adsListServ;
   }
 
+ 
   
-
 }

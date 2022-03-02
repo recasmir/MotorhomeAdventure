@@ -5,6 +5,7 @@ import { MemberProfileComponent } from './pages/member-profile/member-profile.co
 import { MemberMatchComponent } from './pages/member-match/member-match.component';
 import { MembersAdsComponent } from './pages/members-ads/members-ads.component';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
+import { SingleAdComponent } from './components/single-ad/single-ad.component';
 
 
 
@@ -14,11 +15,15 @@ import { AddAdComponent } from './components/add-ad/add-ad.component';
       MemberProfileComponent,
       MemberMatchComponent,
       MembersAdsComponent,
-      AddAdComponent
+      AddAdComponent,
+      SingleAdComponent
   ],
   imports: [
     CommonModule,
     MembersRoutingModule
+  ],
+  exports: [
+    SingleAdComponent
   ]
 })
 export class MembersModule { }

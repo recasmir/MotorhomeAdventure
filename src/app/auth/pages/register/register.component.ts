@@ -107,6 +107,7 @@ export class RegisterComponent {
 
     this.authService.auth_open=true;
 
+    //passing peronal info to profile page
     this.personalInfoService.personalInfo=newMember;
 
     this.router.navigate(['./members/profile']);

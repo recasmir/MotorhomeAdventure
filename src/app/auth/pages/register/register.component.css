@@ -5,9 +5,9 @@ span{
 a{
     color:#B35B46!important;
     text-decoration: none;
-}
-
-a:hover{
+  }
+  
+  a:hover{
     font-weight: bold;
     cursor: pointer;
-}
+  }
