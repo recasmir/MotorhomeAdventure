@@ -1,3 +1,4 @@
+import { AuthToMembersService } from './../../services/auth-to-members.service';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -46,6 +47,7 @@ export class RegisterComponent {
 
   registeredMembers:Member[]=[];
   showKids:boolean=false;
+  showMemberZone:boolean=false;
   firstName:string='';
   lastName:string='';
 
@@ -53,7 +55,8 @@ export class RegisterComponent {
               private modalService:ModalService,
               private router: Router,
               private authService:AuthService,
-              private personalInfoService:PersonalInfoService) {
+              private personalInfoService:PersonalInfoService,
+              private authToMembersService:AuthToMembersService) {
                 
       this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
               }
@@ -105,10 +108,15 @@ export class RegisterComponent {
 
     localStorage.setItem('Registered members', JSON.stringify(this.registeredMembers));
 
+    //setting true for guard to allow navigation
     this.authService.auth_open=true;
 
     //passing peronal info to profile page
     this.personalInfoService.personalInfo=newMember;
+
+    // this.authToMembersService.goToMembers();
+    // this.showMemberZone=this.authToMembersService.showMemberZone;
+    // console.log('showmemberzone', this.showMemberZone);
 
     this.router.navigate(['./members/profile']);
 

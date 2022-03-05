@@ -27,3 +27,11 @@ export interface loggedMember{
     email:string,
     pwd:string
 }
+
+export interface AuthResponse {
+    ok: boolean;
+    uid?: string;
+    fName?:string;
+    token?:string;
+    msg?:string;
+}
