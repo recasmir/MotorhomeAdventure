@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Member } from 'src/app/auth/interfaces/auth.interfaces';
-import { PersonalInfoService } from 'src/app/services/personal-info.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+
 
 @Component({
   selector: 'app-member-profile',
@@ -9,22 +9,17 @@ import { PersonalInfoService } from 'src/app/services/personal-info.service';
 })
 export class MemberProfileComponent implements OnInit {
 
-  memberInfo!:Member;
-  registeredMembers:Member[];
   children:boolean=false;
 
-  constructor(private personalInfoService:PersonalInfoService) {
-    this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
-   }
+  get member(){
+    return this.authService.member;
+  }
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // this.memberInfo=this.personalInfoService.personalInfo;
-    // console.log(this.memberInfo.fName)
 
-    console.log(this.registeredMembers)
-    this.memberInfo=this.registeredMembers[this.registeredMembers.length-1];
-
-    if(this.memberInfo.nChildren){
+    if(this.member.nChildren){
       this.children=true;
     }
   }

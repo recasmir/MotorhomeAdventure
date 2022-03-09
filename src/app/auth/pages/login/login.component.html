@@ -7,41 +7,43 @@
           <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
             
           <img class="p-2" src="./assets/img/ma-logo-dark.png" alt="" width="40%">
-            <div *ngIf="needRegister" id="needSignUp" class="border border-danger rounded-3 px-3">
-              <p class="text-danger pt-2"><small>The credentials you entered are incorrect or you need to register first.</small></p>
-              <p class="text-danger"><small>Reminder: passwords are case sensitive.</small></p>
-            </div>
-            <h3 class="modal-title pt-2 pb-0">LOG IN</h3>
+            <h3 class="modal-title pt-2 pb-0">Welcome back - login</h3>
         </div>
         <div class="modal-body pt-0">
-        <form class="row px-3" [formGroup]="logInForm">
+          <form class="row px-3" [formGroup]="logInForm">
 
-        <input class="form-control p-1 my-2 rounded-3"
-              formControlName="email"
-              type="email" 
-              placeholder="Email Address">
-        <span class="text-danger"
-              *ngIf="validField('email')">
-              Email is required. Please, make sure your email address is correct.
-        </span>
+            <input class="form-control p-1 my-2 rounded-3"
+                  formControlName="email"
+                  type="email" 
+                  placeholder="Email Address">
+            <span class="text-danger"
+                  *ngIf="validField('email')">
+                  Email is required. Please, make sure your email address is correct.
+            </span>
 
-        <input class="form-control p-1 my-2 rounded-3"
-              formControlName="pwd"
-              type="password" 
-              placeholder="Password">
-        <span class="text-danger"
-              *ngIf="validField('pwd')">
-              Password is required and needs at least 6 characters.
-        </span>
+            <input class="form-control p-1 my-2 rounded-3"
+                  formControlName="pwd"
+                  type="password" 
+                  placeholder="Password">
+            <span class="text-danger"
+                  *ngIf="validField('pwd')">
+                  Password is required and needs at least 6 characters.
+            </span>
 
-        </form>
+          </form>
         </div>
         <div class="modal-footer d-flex justify-content-center pb-4">
-        <button type="button" class="btn btn-outline-primary text-center" (click)="logIn(); canClose===true? close():''">Log in</button>
-        <button type="button" 
-                (click)="close()" 
-                class="btn btn-outline-info"
-                routerLink="./auth/register">Create an account</button>
+          <button type="button" 
+                  class="btn btn-outline-primary text-center" 
+                  (click)="logout();logIn()">
+                  Log in
+          </button>
+          <button type="button" 
+                  (click)="close()" 
+                  class="btn btn-outline-info"
+                  routerLink="./auth/register">
+                  Create an account
+          </button>
         </div>
       </div>
       <div>
@@ -49,4 +51,3 @@
       </div>
     </div>
   </div>
-

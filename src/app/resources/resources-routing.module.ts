@@ -4,6 +4,7 @@ import { ShopsComponent } from './shops/shops.component';
 import { StopoversComponent } from './stopovers/stopovers.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../pages/home/home.component';
+import { EventsComponent } from './events/events.component';
 
 const routes:Routes = [
   {
@@ -17,6 +18,10 @@ const routes:Routes = [
       {
         path:'stopovers',
         component:StopoversComponent
+      },
+      {
+        path:'events',
+        component:EventsComponent
       },
       {
         path:'**',

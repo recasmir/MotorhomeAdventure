@@ -2,3 +2,51 @@
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.9);
   }
+
+  a.logoutlink, .member-zone{
+    /* color: #B35B46!important; */
+    color: aqua!important;
+  }
+  a.logoutlink:hover{
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .border-blue{
+    border-left:1px solid aqua;
+  }
+
+  .loginlink{
+    text-decoration: none!important;
+    color: aqua!important;
+    font-family: 'Montserrat';
+  }
+
+  .loginlink:hover{
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .font-montserrat{
+    font-family: 'Montserrat';
+  
+  }
+  @media (max-width: 1199px){
+    ul.navbar-nav, .media-xl {
+        /* width: 95vw; */
+        /* padding-left: 5%; */
+        padding-bottom: 15px;
+        margin-top: 30px;
+        text-align: center;
+        background-color: rgba(0, 13, 50, 0.8)!important;
+    }
+
+    .border-blue{
+      border-left: none;
+      border-top: 1px solid aqua;
+    }
+
+    .border-blue-bottom{
+      border-bottom: 1px solid aqua;
+    }
+}

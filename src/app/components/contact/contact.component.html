@@ -1,25 +1,66 @@
-<form action="commentsHello.html" id="contactFormId" name="contactForm" onsubmit="return contactFormValidate()" class="row my-3 px-5 justify-content-center">
+<div class="container-lg">
+<form [formGroup]="contactForm" 
+      class="row my-3 px-5 justify-content-center"
+      (ngSubmit)="contact()">
     <div class="col-12">
       <h2 class="text-center py-3">Contact us</h2>
     </div>
     <div class="col-md-4">
-      <label for="firstNameContact"><span class="text-danger">* </span>First name:</label><br>
-      <input type="text" id="firstNameContact" name="firstNameContact"><br>
-      <div class="invalid-feedback" id="errorFirstNameContact"></div>
-      <label for="lastNameContact"><span class="text-danger">* </span>Last name:</label><br>
-      <input type="text" id="lastNameContact" name="lastNameContact"><br>
-      <div class="invalid-feedback" id="errorLastNameContact"></div>
-      <label for="emailContact"><span class="text-danger">* </span>eMail:</label><br>
-      <input type="text" id="emailContact" name="emailContact">
-      <div class="invalid-feedback" id="errorEmailContact"></div>
+      <div class="row">
+        <div class="col-12">
+        <label for="fNameContact"><span class="text-danger">* </span>First name:</label><br>
+        <input class="form-control" 
+              type="text" 
+              formControlName="fNameContact">
+        <span class="text-danger"
+              *ngIf="validField('fNameContact')">
+              First name is required.
+        </span>
+      </div>
+      <div class="col-12">
+        <label for="lNameContact"><span class="text-danger">* </span>Last name:</label>
+        <br>
+        <input class="form-control" 
+              type="text" 
+              formControlName="lNameContact">
+        <span class="text-danger"
+            *ngIf="validField('fNameContact')">
+            First name is required.
+        </span>
+      </div>
+      <div class="col-12">
+        <label for="emailContact"><span class="text-danger">* </span>eMail:</label><br>
+        <input class="form-control" 
+              type="email" 
+              formControlName="emailContact">
+
+        <span class="text-danger"
+          *ngIf="validField('emailContact')">
+          Email is required. Please, make sure your email address is correct.
+        </span>
+      </div>
+      </div>
     </div>
     <div class="col-md-4">
-      <label for="comments"><span class="text-danger">* </span>What would you like to know?:</label><br>
-      <textarea id="comments" name="comments" rows="6" cols="60"></textarea>
-      <div class="invalid-feedback" id="errorComments"></div>
+      <label for="commentsContact"><span class="text-danger">* </span>What would you like to know?:</label><br>
+      <textarea class="form-control" 
+                formControlName="commentsContact" 
+                rows="6" 
+                cols="60">
+      </textarea>
+      <span class="text-danger"
+            *ngIf="validField('commentsContact')">
+            This field is required.
+    </span>
     </div>
     <div class="col-12 text-center">
-      <input class="btn btn-outline-primary my-2" type="submit" value="Send"><br>
+      <button class="btn btn-outline-primary my-2" 
+             type="submit"
+             >
+             Send
+      </button>
+      <br>
       <p class="text-danger mt-2" style="font-size: 12px;">*this field is required</p>
     </div>
   </form>
+</div>

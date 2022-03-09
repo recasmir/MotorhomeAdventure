@@ -42,7 +42,7 @@
 
                     <span class="text-danger"
                             *ngIf="validField('repwd')">
-                            Password doesn't match.
+                            Passwords doesn't match.
                     </span>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 pt-2">
@@ -91,7 +91,7 @@
                     <label for="age">Age:</label>
                     <select class="form-control"    
                             formControlName="age"
-                            (change)="changeValue($event,age)">
+                            (change)="changeValue($event,age);removeOptionPosition('age')">
                     <option *ngFor="let age of ageList" [ngValue]="age">{{age}}</option>
                     </select>
             </div>
@@ -99,7 +99,7 @@
                 <label for="gender">Gender:</label><br>
                 <select class="form-control"    
                         formControlName="gender"
-                        (change)="changeValue($event,gender)">>
+                        (change)="changeValue($event,gender);removeOptionPosition('gender')">>
                     <option *ngFor="let gender of genderList" [ngValue]="gender">{{gender}}</option>
                 </select>
             </div>
@@ -109,7 +109,7 @@
                 <label for="traveller"><span class="text-danger">* </span>Type of traveller:</label><br>
                 <select class="form-control"    
                         formControlName="traveller"
-                        (change)="changeValue($event,traveller); showKidsInfo($event)">
+                        (change)="changeValue($event,traveller); showKidsInfo($event);removeOptionPosition('traveller')">
                     <option *ngFor="let traveller of travellerList" [ngValue]="traveller">{{traveller}}</option>
                 </select>
                 <span class="text-danger"
@@ -140,7 +140,7 @@
                 <label for="transport"><span class="text-danger">* </span>Type of transport:</label><br>
                 <select class="form-control"    
                         formControlName="transport"
-                        (change)="changeValue($event,transport)">>
+                        (change)="changeValue($event,transport);removeOptionPosition('transport')">
                     <option *ngFor="let transport of transportList" [ngValue]="transport">{{transport}}</option>
                 </select>
                 <span class="text-danger"

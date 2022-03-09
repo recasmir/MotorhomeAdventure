@@ -2,10 +2,9 @@ import { AuthToMembersService } from './../../services/auth-to-members.service';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PersonalInfoService } from 'src/app/services/personal-info.service';
-import { Member, Trip } from '../../interfaces/auth.interfaces';
 import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -23,43 +22,36 @@ export class RegisterComponent {
     { name: ' Week trips'},
     { name: ' Long adventures - 2 weeks+'}
   ];
-  locationList:string[]=["Andalucía", "Aragón", "Canarias", "Cantabria", "Castilla y León", "Castilla-La Mancha", "Catalunya", "Ceuta", "Comunidad Valenciana", "Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias", "Región de Murcia"]
+  locationList:string[]=[" Andalucía", " Aragón", " Canarias", " Cantabria", " Castilla y León", " Castilla-La Mancha", " Catalunya", " Ceuta", " Comunidad Valenciana", " Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias", "Región de Murcia"]
   
 
   registrationForm:FormGroup=this.fb.group({
-    email:['', [Validators.required, Validators.email]],
-    pwd:['', [Validators.required, Validators.minLength(6)]],
-    repwd:['', [Validators.required, Validators.minLength(6)]],
-    location:['', Validators.required],
-    fName:['', Validators.required],
-    lName:['', Validators.required],
-    age:[''],
-    gender:[''],
-    traveller:['', Validators.required],
+    email:['test5@test.com', [Validators.required, Validators.email]],
+    pwd:['123456', [Validators.required, Validators.minLength(6)]],
+    repwd:['123456', [Validators.required, Validators.minLength(6)]],
+    location:[' Catalunya', Validators.required],
+    fName:['Mire', Validators.required],
+    lName:['Reca', Validators.required],
+    age:['36-45'],
+    gender:['female'],
+    traveller:['Couple', Validators.required],
     nChildren:[],
     aChildren:[''],
-    dog:[''],
-    transport:['', Validators.required],
+    dog:['no'],
+    transport:['Motorhome', Validators.required],
     trip: this.fb.array([]),
     about:[''],
-    terms:[false, Validators.requiredTrue]
+    terms:[true, Validators.requiredTrue]
   })
 
-  registeredMembers:Member[]=[];
   showKids:boolean=false;
-  showMemberZone:boolean=false;
-  firstName:string='';
-  lastName:string='';
+  showMemberZoneMenu:boolean=false;
 
   constructor(private fb:FormBuilder,
               private modalService:ModalService,
               private router: Router,
               private authService:AuthService,
-              private personalInfoService:PersonalInfoService,
-              private authToMembersService:AuthToMembersService) {
-                
-      this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
-              }
+              private authToMembersService:AuthToMembersService) {}
   
   get age() { return this.registrationForm.get('age') }
 
@@ -93,6 +85,14 @@ export class RegisterComponent {
     }
   }
   
+
+  removeOptionPosition(input:string){
+    const valor=this.registrationForm.controls[input].value;
+    const output=valor.substring(3);
+    this.registrationForm.controls[input].setValue(output);
+    console.log(output);
+  }
+
   register(){
 
     if(this.registrationForm.invalid){
@@ -100,28 +100,29 @@ export class RegisterComponent {
       return
     }
 
-    const newMember= this.registrationForm.value;
-    this.registeredMembers.push(newMember);
+    console.log(this.registrationForm.value);
 
-    // this.firstName=this.registrationForm.controls['fName'].value;
-    // this.lastName=this.registrationForm.controls['lName'].value;
+    //removing position characteres from location
+    const valor=this.registrationForm.controls['location'].value;
+    const output=valor.substring(4);
+    this.registrationForm.controls['location'].setValue(output);
 
-    localStorage.setItem('Registered members', JSON.stringify(this.registeredMembers));
+    const { email, pwd, location, fName, lName, age, gender, traveller, nChildren, aChildren, dog, transport, trip, about, terms } = this.registrationForm.value;
 
-    //setting true for guard to allow navigation
-    this.authService.auth_open=true;
 
-    //passing peronal info to profile page
-    this.personalInfoService.personalInfo=newMember;
+    this.authService.register(email, pwd, location, fName, lName, traveller, transport, terms, age, gender, nChildren, aChildren, dog,  trip, about )
+      .subscribe(ok => {
+        console.log(ok);
+        if(ok===true){
+          this.authToMembersService.showMemberZoneMenu=true;
+          this.authToMembersService.sendClickEvent(this.showMemberZoneMenu);
+          this.router.navigate(['./members/profile']);
+        }else{
+          Swal.fire('Error', ok, 'error');
+        }
+      })
 
-    // this.authToMembersService.goToMembers();
-    // this.showMemberZone=this.authToMembersService.showMemberZone;
-    // console.log('showmemberzone', this.showMemberZone);
-
-    this.router.navigate(['./members/profile']);
-
-    console.log('registeredMembers',this.registeredMembers);
-    this.registrationForm.reset();
+      this.registrationForm.reset();
   }
 
   validField(inputField:string){

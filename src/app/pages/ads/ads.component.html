@@ -1,11 +1,30 @@
 <div class="container-lg margin-top-nav">
-    <div class="col-12">
-        <h1>Advertisements from members</h1>
+    <div class="row">
+        <div class="col-12">
+            <h1>Advertisements from members</h1>
+        </div>
+        <div class="col-12 text-center">
+            <p>You need to register to see the full details of the members who posted the ads and to be able to contact them. <a routerLink="/auth/registration"> Register here.</a></p>
+        </div>
     </div>
-    <div class="col-12">
-<p>You need to register to see the full details of the members who posted the ads and to be able to contact them. <a routerLink="/auth/registration"> Register here.</a></p>
+    <!-- <div class="row justify-content-center"
+         *ngIf="noAds">
+        <div class="col-12 col-md-8 text-center p-4 border border-4 border-info rounded-3">
+            <p class="mb-0">There are no ads posted yet. Register and be the first one!&nbsp; &#8594; <a routerLink="/auth/registration">Post an ad.</a></p>
+        </div>
+    </div> -->
+    <div class="col-12">   
+        <div class="card mt-3"
+            *ngFor="let ad of adsArray">
+            <div class="card-header">
+                Title: {{ad.title}}
+            </div>
+            <div class="card-body">
+            <p class="card-text">{{ad.body}}</p>
+            </div>
+            <div class="card-footer text-muted text-end py-0">
+                <small>{{ad.date | date}}</small>
+            </div>
+        </div>
     </div>
-    <div class="col-16">   
-    <app-single-ad></app-single-ad>
-    </div>
-    </div>
+</div>

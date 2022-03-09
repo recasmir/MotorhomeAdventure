@@ -1,80 +1,157 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { of, Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AuthResponse, loggedMember, Member } from '../interfaces/auth.interfaces';
+import { Ad, AuthResponse, ContactResponse, FetchAllResponse, Member, MemberAd } from '../interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  registeredMembers:Member[];
-  loggedInMembers:loggedMember[];
-  needRegisterServ:boolean=false;
-  resultServ:boolean=true;
-  auth_open:boolean=false;
+  private baseUrl: string = environment.baseUrl;
+  private _member!: Member;
+  public showMemberZoneMenu:boolean = false;
+  // public allMembersInfo!:any;
 
-  constructor(private router:Router,
-              private http: HttpClient) {
-
-    this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
-   
-   this.loggedInMembers=JSON.parse(localStorage.getItem('Logged in members')!) || [];
+  get member(){
+    return {...this._member};
   }
 
-  checkCredentials(email:string, pwd:string): boolean{
+  constructor(private http: HttpClient) {}
 
-    let newMemberIn={
-      email,
-      pwd
+  register(
+    email:string,
+    pwd:string,
+    location:string,
+    fName:string,
+    lName:string,
+    traveller:string,
+    transport:string,
+    terms:boolean,
+    age?:string,
+    gender?:string,
+    nChildren?:number,
+    aChildren?:string,
+    dog?:string,
+    trip?:string[],
+    about?:string,
+    ads?:string[]
+  ){
+    const url = `${this.baseUrl}/auth/register`;
+    const body = { email, pwd, location, fName, lName, age, gender, traveller, terms, nChildren, aChildren, dog, transport, trip, about, ads };
+
+    return this.http.post<AuthResponse>(url, body)
+            .pipe(
+              tap( resp => {
+                console.log(resp);
+                if (resp.ok) {
+                  localStorage.setItem('token', resp.token!);
+                }
+              }),
+              map( resp => resp.ok),
+              catchError( err => of(err.error.msg))
+            )
+  }
+
+  login( email: string, pwd: string) {
+
+    const url = `${this.baseUrl}/auth`;
+    const body = { email, pwd};
+
+    return this.http.post<AuthResponse>(url, body)
+            .pipe(
+              tap( resp => {
+                if (resp.ok) {
+                  localStorage.setItem('token', resp.token!);
+                }
+              }),
+              map( resp => resp.ok),
+              catchError( err => of(err.error.msg))
+            )
+  }
+
+//transformamos el resultado en un observable que emite booleanos(porque es lo que nos pide el guard) con map
+
+  validarToken(): Observable<boolean>{
+    const url = `${this.baseUrl}/auth/renew`;
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<AuthResponse>(url, {headers})
+            .pipe(
+              map( resp => {
+                localStorage.setItem('token', resp.token!);
+                  this._member = {
+                    uid: resp.uid!,
+                    email:resp.email,
+                    location:resp.location,
+                    fName:resp.fName,
+                    lName:resp.lName,
+                    age:resp.age,
+                    gender:resp.gender,
+                    traveller:resp.traveller,
+                    nChildren:resp.nChildren,
+                    aChildren:resp.aChildren,
+                    dog:resp.dog,
+                    transport:resp.transport,
+                    trip:resp.trip,
+                    about:resp.about,
+                    ads:resp.ads
+                  }
+                return resp.ok;
+              }),
+              catchError(err => of(false))
+            );
+  }
+
+    logout(){
+      localStorage.clear();
     }
 
-    this.registeredMembers=JSON.parse(localStorage.getItem('Registered members')!) || [];
+  updateAds(email:string, ads:MemberAd[]){
+    const url = `${this.baseUrl}/auth/update`;
+    const body = { email, ads };
 
-    if(this.registeredMembers.length===0){
-      this.needRegisterServ=true;
-      this.resultServ=false;
-    }
+    console.log(body);
+    return this.http.post<AuthResponse>(url, body)
+    .pipe(
+      map( resp => resp.ok),
+      catchError( err => of(err.error.msg))
+    )
+  }
 
-    for( let member of this.registeredMembers){
+  contact(fNameContact:string,
+          lNameContact:string,
+          emailContact:string,
+          commentsContact:string){
 
-      if(email===member.email && pwd===member.pwd){
+    const url = `${this.baseUrl}/auth/addcontact`;
+    const body = { fNameContact, lNameContact, emailContact, commentsContact};
 
-        this.loggedInMembers.push({...newMemberIn});
+    console.log(body);
+    return this.http.post<ContactResponse>(url, body)
+            .pipe(
+              tap( resp => console.log(resp)),
+              map( resp => resp.ok),
+              catchError( err => of(err.error.msg))
+            )
+  }
 
-        localStorage.setItem('Logged in members', JSON.stringify(this.loggedInMembers));
+  adsArray:any[]=[];
+  fetchAllMembersAds(){
+    this.http.get<FetchAllResponse[]>(`${this.baseUrl}/auth/all`)
+      .subscribe((resp)=>{
+         console.log(resp)
+        const memberAds=resp.map(member => member.ads);
 
-        this.resultServ=true;
-        
-        this.auth_open = true;
-        console.log('SERV auth_open', this.auth_open)
-           
-        return true
-      }else{
-        this.needRegisterServ=true;
-        this.resultServ=false;
-        this.auth_open = false;
-        this.router.navigate(['./members/profile'])
+        // let adsArray:any =[];
+        for(let i=0; i<memberAds.length; i++){
+          this.adsArray=this.adsArray.concat(memberAds[i]);
         }
-      }
-      return false
-}
-
-  //conexión con la bbdd
-
-  // private baseUrl: string = environment.baseUrl;
-
-  // login( email: string, pwd: string) {
-
-  //   const url = `${this.baseUrl}/auth`;
-  //   const body = { email, pwd};
-
-  //   this.http.post<AuthResponse>(url, body);
-  // }
-
-
-
-
-
+        console.log(this.adsArray);
+      })
+  }
+  
 }

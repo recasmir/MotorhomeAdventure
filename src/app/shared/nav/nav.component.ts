@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthToMembersService } from 'src/app/auth/services/auth-to-members.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from 'src/app/auth/services/modal.service';
 
 @Component({
@@ -8,28 +10,46 @@ import { ModalService } from 'src/app/auth/services/modal.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit{
 
-  showMemberZone:boolean=false;
+  clickEventSubscription:Subscription;
+  showMemberZoneMenu:boolean=false;
+  
   constructor(private modalService:ModalService,
               private authToMembersService:AuthToMembersService,
-              private router: Router) { }
-
-  ngOnInit(): void {
+              private router: Router,
+              private authService: AuthService) {
+                
+    //calling callShowMember() from login component via authToMemberService            
+    this.clickEventSubscription = this.authToMembersService.getClickEvent()
+      .subscribe(()=>{
+        this.callShowMember();
+      })
   }
 
+  ngOnInit(): void {
+    //check if token exist to make the member menu show
+    this.authService.validarToken()
+      .subscribe(resp => {
+        if(resp===true){
+          this.showMemberZoneMenu=true;
+        }else{
+          this.showMemberZoneMenu=false;
+        }
+      })
+  }
+
+  callShowMember(){
+    this.showMemberZoneMenu=this.authToMembersService.showMemberZoneMenu;
+  }
+  
   openLogInModal(){
     this.modalService.openLogInModal();
   }
 
-  goToMembers(){
-    
-    this.authToMembersService.goToMembers();
-    this.showMemberZone=this.authToMembersService.showMemberZone;
-   
-  }
-
   logout(){
-    this.router.navigateByUrl('/auth');
+    this.showMemberZoneMenu=false;
+    this.authService.logout();
+    this.router.navigateByUrl('/auth/register');
   }
 }

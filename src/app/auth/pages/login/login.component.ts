@@ -1,16 +1,17 @@
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 import { SimpleModalComponent } from 'ngx-simple-modal';
 import { ModalService } from '../../services/modal.service';
 import { AuthService } from '../../services/auth.service';
-
+import { AuthToMembersService } from './../../services/auth-to-members.service';
 
 export interface AlertModel {
   title?: string;
   message: string;
 }
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,8 +27,10 @@ export class LoginComponent extends SimpleModalComponent<AlertModel, null> imple
   constructor(private router:Router,
               private fb:FormBuilder,
               private modalService:ModalService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private authToMembersService: AuthToMembersService) {
     super();
+    
   }
 
   confirm() {
@@ -35,41 +38,40 @@ export class LoginComponent extends SimpleModalComponent<AlertModel, null> imple
   }
 
   logInForm:FormGroup= this.fb.group({
-    email:['', [Validators.required, Validators.email]],
-    pwd:['', [Validators.required, Validators.minLength(6)]]
+    email:['test1@test.com', [Validators.required, Validators.email]],
+    pwd:['123456', [Validators.required, Validators.minLength(6)]]
   })
 
- 
-  loggedInMembers:string[]=[];
-  needRegister:boolean=false;
-  canClose:boolean=true;
+  showMemberZoneMenu:boolean=false;
 
   logIn(){
 
     if(this.logInForm.invalid){
       this.logInForm.markAllAsTouched();
-      this.canClose=false;
       return
     }
 
-    const memberIn=this.logInForm.value;
-    this.loggedInMembers.push(memberIn);
+    const { email, pwd } = this.logInForm.value;
 
-    console.log('memberIn', memberIn)
-    
-
-    this.authService.checkCredentials(memberIn.email, memberIn.pwd);
-
-    this.needRegister=this.authService.needRegisterServ;
-    this.canClose=this.authService.resultServ;
-    console.log('canClose', this.canClose)
-
-    this.router.navigate(['./members/profile']);
-
-    this.logInForm.reset();
-    
+    this.authService.login(email, pwd)
+      .subscribe(ok => {
+        console.log(ok);
+        if(ok===true){
+          this.authToMembersService.showMemberZoneMenu=true;
+          this.authToMembersService.sendClickEvent(this.showMemberZoneMenu);
+          this.modalService.closeModal();
+          this.router.navigate(['./members/profile']);
+        }else{
+          Swal.fire('Error', ok, 'error');
+        }
+      })
+      this.logInForm.reset();
   }
 
+  logout(){
+    this.authService.logout();
+  }
+  
   validField(inputField:string){
     return this.logInForm.controls[inputField].errors && this.logInForm.controls[inputField].touched;
   }

@@ -1,16 +1,42 @@
-<div class="container-lg margin-top-nav footer-to-bottom">
-    <div class="col-6">
-        <div class="row">
-            <div class="col-6 pt-3 ps-3">
-                <p class="mb-0">Posted by {{advert[0].fName}} {{advert[0].lName}}</p>
+<div class="container-lg margin-top-nav">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Member Ads</h1>
+            <p><b>SEARCH.FIND.ENJOY.</b></p>
+            <p>Look through the ads and contact the person to start and adventure together!</p>
+        </div>
+    </div>
+    <!-- <div class="row justify-content-center"
+         *ngIf="noAds">
+        <div class="col-12 col-md-8 text-center p-4 border border-4 border-info rounded-3">
+            <p class="mb-0">There are no ads posted yet. Be the first one! -> <a routerLink="/members/profile">Post an ad.</a></p>
+        </div>
+    </div> -->
+    <div class="row"
+         *ngFor="let ad of adsArray">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6 pt-3 ps-3">
+                    <p class="mb-0">Posted by {{ad.fName}} {{ad.lName}}</p>
+                </div>
+                <div class="col-6 pt-3 mb-0 text-end pe-3">
+                    <p class="mb-0"><a href="mailto:{{ad.email}}">Contact member</a></p>
+                </div>
+                <div class="col-12 pt-0">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            Title: {{ad.title}}
+                        </div>
+                        <div class="card-body">
+                        <p class="card-text">{{ad.body}}</p>
+                        </div>
+                        <div class="card-footer text-muted text-end py-0">
+                            <small>{{ad.date | date}}</small>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 pt-3 mb-0 text-end pe-3">
-                <p class="mb-0"><a href="mailto:{{advert[0].email}}">Contact member</a></p>
-            </div>
-            <div class="col-12 pt-0">
-             <app-single-ad></app-single-ad>
-            </div>
-    
         </div>
     </div>
 </div>
+

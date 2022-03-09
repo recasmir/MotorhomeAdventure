@@ -1,12 +1,12 @@
+import { MemberAd } from './../../auth/interfaces/auth.interfaces';
 import { Injectable } from '@angular/core';
-import { AdsList } from '../interfaces/members.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostedAdService {
 
-  public adsListServ:AdsList[]=[];
+  public adsListServ:MemberAd[]=[];
 
 
   constructor() { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostedAdService } from '../../services/posted-ad.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-members-ads',
@@ -8,16 +8,15 @@ import { PostedAdService } from '../../services/posted-ad.service';
 })
 export class MembersAdsComponent implements OnInit {
 
-  constructor(private postedAdService:PostedAdService) { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
+    this.authService.adsArray=[];
+    this.authService.fetchAllMembersAds();
   }
 
-  get advert(){
-    console.log(this.postedAdService.adsListServ)
-    return this.postedAdService.adsListServ;
+  get adsArray(){
+    return this.authService.adsArray;
   }
-
-  
 
 }

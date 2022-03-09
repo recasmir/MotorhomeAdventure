@@ -15,10 +15,13 @@ li{
     margin-top:20px;
 }
 
-/* a{
-    text-decoration: none;
-} */
 a:hover{
     font-weight: bold;
     color:#B35B46;
+}
+
+.bg{
+    /* background-image: linear-gradient(to right, #000D32, aqua); */
+    background-image: radial-gradient(#000D32, aqua);
+    
 }

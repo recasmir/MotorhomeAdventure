@@ -30,6 +30,7 @@ import { MembersModule } from './members/members.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,8 +46,7 @@ import { MembersModule } from './members/members.module';
     ResourcesHomeComponent,
     RentalHomeComponent,
     ContactComponent,
-    AdsComponent,
-
+    AdsComponent
   ],
   imports: [
     BrowserModule,
