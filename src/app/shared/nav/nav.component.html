@@ -1,5 +1,5 @@
 
-    <nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-blue">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-blue">
       <a class="navbar-brand" href="#"><img src="./assets/img/ma-logo-100.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -69,26 +69,30 @@
                  data-bs-toggle="collapse" 
                  data-bs-target=".navbar-collapse.show">MATCH</a>
             </li>
-            <li *ngIf="showMemberZoneMenu" class="nav-item">
-              <a class="nav-link logoutlink border-blue-bottom" 
-                 (click)="logout()"
-                 data-bs-toggle="collapse" 
-                 data-bs-target=".navbar-collapse.show">Logout</a>
-            </li>
+
         </ul> 
-        <div class="my-2 my-lg-0 justify-self-end pe-4 media-xl">
+        <div class="my-2 my-lg-0 justify-self-end pe-lg-4 media-xl">
+           
+            <a class="nav-link logoutlink border-blue-bottom" 
+               (click)="logout()"
+               data-bs-toggle="collapse" 
+               data-bs-target=".navbar-collapse.show"
+               *ngIf="showMemberZoneMenu">Logout</a>
+          
           <a style="margin-right: 10px;" 
                   class="loginlink my-2 my-sm-0" 
                   data-toggle="modal" 
                   data-target="#signInForm"
                   (click)="openLogInModal()"
                   data-bs-toggle="collapse" 
-                  data-bs-target=".navbar-collapse.show">Log in</a>
+                  data-bs-target=".navbar-collapse.show"
+                  *ngIf="notLogged">Log in</a>
           <button class="btn btn-menu my-2 my-sm-0 font-montserrat"
                   style="padding: 4px;"
                   [routerLink]="['./auth/register']"
                   data-bs-toggle="collapse" 
-                  data-bs-target=".navbar-collapse.show">Register</button>
+                  data-bs-target=".navbar-collapse.show"
+                  *ngIf="notLogged">Register</button>
         </div>
       </div>  
     </nav>

@@ -14,6 +14,7 @@ export class NavComponent implements OnInit{
 
   clickEventSubscription:Subscription;
   showMemberZoneMenu:boolean=false;
+  notLogged:boolean=true;
   
   constructor(private modalService:ModalService,
               private authToMembersService:AuthToMembersService,
@@ -33,14 +34,17 @@ export class NavComponent implements OnInit{
       .subscribe(resp => {
         if(resp===true){
           this.showMemberZoneMenu=true;
+          this.notLogged=false;
         }else{
           this.showMemberZoneMenu=false;
+          this.notLogged=true;
         }
       })
   }
 
   callShowMember(){
     this.showMemberZoneMenu=this.authToMembersService.showMemberZoneMenu;
+    this.notLogged=false;
   }
   
   openLogInModal(){
@@ -49,6 +53,7 @@ export class NavComponent implements OnInit{
 
   logout(){
     this.showMemberZoneMenu=false;
+    this.notLogged=true;
     this.authService.logout();
     this.router.navigateByUrl('/auth/register');
   }

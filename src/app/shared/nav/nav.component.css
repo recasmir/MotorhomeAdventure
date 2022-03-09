@@ -4,7 +4,7 @@
   }
 
   a.logoutlink, .member-zone{
-    /* color: #B35B46!important; */
+    font-family: 'Montserrat';
     color: aqua!important;
   }
   a.logoutlink:hover{
@@ -31,7 +31,7 @@
     font-family: 'Montserrat';
   
   }
-  @media (max-width: 1199px){
+  @media (max-width: 991px){
     ul.navbar-nav, .media-xl {
         /* width: 95vw; */
         /* padding-left: 5%; */
@@ -46,7 +46,7 @@
       border-top: 1px solid aqua;
     }
 
-    .border-blue-bottom{
+    /* .border-blue-bottom{
       border-bottom: 1px solid aqua;
-    }
+    } */
 }
