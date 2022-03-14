@@ -1,0 +1,56 @@
+<div class="container-lg">
+    <div class="col-12 margin-top-nav text-center border-info">
+        <h2>{{member.fName}} {{member.lName}}</h2>
+        <hr style="color: #B35B46">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <p><b>DETAILS</b></p>
+            <div class="grid-container"> 
+                <div><p>First Name:</p></div>
+                <div><p>{{member.fName}}</p></div>
+                <div><p>Last Name:</p></div>
+                <div><p>{{member.lName}}</p></div>
+                <div><p>email:</p></div>
+                <div><p>{{member.email}}</p></div>
+                <div><p>Location:</p></div>
+                <div><p>{{member.location}}</p></div>
+                <div><p>Age:</p></div>
+                <div><p>{{member.age}}</p></div>
+                <div><p>Gender:</p></div>
+                <div><p>{{member.gender}}</p></div>
+                <div><p>Type of traveller:</p></div>
+                <div><p>{{member.traveller}}</p></div>
+                <!-- <div *ngIf="children"><p>Number of kids:</p></div>
+                <div *ngIf="children"><p>{{member.nChildren}}</p></div>
+                <div *ngIf="children"><p>Age and gender of the kids: </p></div>
+                <div *ngIf="children"><p>{{member.aChildren}}</p></div> -->
+                <div><p>Type of transport: </p></div>
+                <div><p>{{member.transport}}</p></div>
+                <div><p>Travel with dog: </p></div>
+                <div><p>{{member.dog}}</p></div>
+                <div><p>Types of trips: </p></div>
+                <div><p>{{member.trip}}</p></div>
+                <div><p>More info about you: </p></div>
+                <div><p>{{member.about}}</p></div>
+                </div>
+            
+            
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card mt-3"
+                *ngFor="let ad of member.ads">
+                <div class="card-header">
+                    Title: {{ad.title}}
+                </div>
+                <div class="card-body">
+                <p class="card-text">{{ad.body}}</p>
+                </div>
+                <div class="card-footer text-muted text-end py-0">
+                    <small>{{ad.date | date}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

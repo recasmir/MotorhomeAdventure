@@ -153,5 +153,22 @@ export class AuthService {
         console.log(this.adsArray);
       })
   }
-  
+
+  // fetchOneMember(email:string){
+
+  //   const body = {email};
+  //   const headers = new HttpHeaders({'email':email})
+
+  //   return this.http.get<FetchAllResponse>(`${this.baseUrl}/auth/usuario`, {headers})
+  //     .subscribe((resp)=>{
+  //        console.log(resp)
+  //   })
+  // }
+
+  fetchMembers(){
+    return this.http.get<FetchAllResponse[]>(`${this.baseUrl}/auth/all`)
+    //   .subscribe((resp)=>{
+    //      console.log(resp)
+    // })
+  }
 }

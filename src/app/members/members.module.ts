@@ -7,6 +7,7 @@ import { MembersAdsComponent } from './pages/members-ads/members-ads.component';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { SingleAdComponent } from './components/single-ad/single-ad.component';
 import { SingleProfileComponent } from './components/single-profile/single-profile.component';
+import { MemberSingleComponent } from './member-single/member-single.component';
 
 
 
@@ -18,7 +19,8 @@ import { SingleProfileComponent } from './components/single-profile/single-profi
       MembersAdsComponent,
       AddAdComponent,
       SingleAdComponent,
-      SingleProfileComponent
+      SingleProfileComponent,
+      MemberSingleComponent
   ],
   imports: [
     CommonModule,

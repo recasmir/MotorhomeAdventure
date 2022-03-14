@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MemberProfileComponent } from './pages/member-profile/member-profile.component';
 import { MemberMatchComponent } from './pages/member-match/member-match.component';
 import { MembersAdsComponent } from './pages/members-ads/members-ads.component';
+import { MemberSingleComponent } from './member-single/member-single.component';
 
 const routes:Routes = [
   {
@@ -20,6 +21,10 @@ const routes:Routes = [
       {
         path:'ads',
         component: MembersAdsComponent
+      },
+      {
+        path:'member',
+        component: MemberSingleComponent
       },
       {
         path:'**',

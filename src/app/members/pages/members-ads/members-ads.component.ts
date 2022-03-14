@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FetchAllResponse } from 'src/app/auth/interfaces/auth.interfaces';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -8,7 +10,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class MembersAdsComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,
+              private router:Router) { }
 
   ngOnInit(): void {
     this.authService.adsArray=[];
@@ -18,5 +21,19 @@ export class MembersAdsComponent implements OnInit {
   get adsArray(){
     return this.authService.adsArray;
   }
+
+  seeMember(email:string){
+
+    this.authService.fetchMembers()
+    .subscribe((resp)=>{
+      for(let i=0; i<resp.length; i++){
+        if(resp[i].email===email){
+          console.log(resp[i]);
+          this.router.navigate(["/members/member"], {state: {data: resp[i]}});
+        }
+      }
+    })
+  }
+
 
 }
