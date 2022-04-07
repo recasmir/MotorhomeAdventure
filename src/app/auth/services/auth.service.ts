@@ -122,6 +122,30 @@ export class AuthService {
     )
   }
 
+  updateMemberDetails(email:string, 
+                      location:string, 
+                      fName:string,
+                      lName:string, 
+                      traveller:string, 
+                      transport:string, 
+                      age:string, 
+                      gender:string, 
+                      nChildren:number, 
+                      aChildren:string, 
+                      dog:string, 
+                      trip:string[], 
+                      about:string){
+    const url = `${this.baseUrl}/auth/updateallinfo`;
+    const body = { email, location, fName, lName, traveller, transport, age, gender, nChildren, aChildren, dog, trip, about };
+  
+    console.log(body);
+    return this.http.post<AuthResponse>(url, body)
+    .pipe(
+      map( resp => resp.ok),
+      catchError( err => of(err.error.msg))
+    )
+  }
+
   contact(fNameContact:string,
           lNameContact:string,
           emailContact:string,

@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { defaultSimpleModalOptions, SimpleModalModule } from 'ngx-simple-modal';
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -55,6 +57,7 @@ import { MembersModule } from './members/members.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
     SimpleModalModule.forRoot({ container: 'modal-container' }, {
       ...defaultSimpleModalOptions, ...{
         closeOnEscape: true,

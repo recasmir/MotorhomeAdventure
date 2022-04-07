@@ -8,7 +8,7 @@ export interface MemberAd {
     tags?: string[]
 }
 export interface Member{
-    uid:string,
+    uid?:string,
     email:string,
     // pwd:string,
     // repwd:string,

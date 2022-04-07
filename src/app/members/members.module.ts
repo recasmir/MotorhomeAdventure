@@ -8,6 +8,7 @@ import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { SingleAdComponent } from './components/single-ad/single-ad.component';
 import { SingleProfileComponent } from './components/single-profile/single-profile.component';
 import { MemberSingleComponent } from './member-single/member-single.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -24,7 +25,9 @@ import { MemberSingleComponent } from './member-single/member-single.component';
   ],
   imports: [
     CommonModule,
-    MembersRoutingModule
+    MembersRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SingleAdComponent
