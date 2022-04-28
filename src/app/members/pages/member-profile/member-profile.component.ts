@@ -15,7 +15,9 @@ export class MemberProfileComponent implements OnInit {
   //   return this.authService.member;
   // }
 
+  
   member:any=this.authService.member;
+  locationOld:string=this.authService.member.location;
 
   children:boolean=false;
   details:boolean=true;
@@ -23,8 +25,6 @@ export class MemberProfileComponent implements OnInit {
   newMemberDetails:boolean=false;
 
   updateMemberDetailsForm = new FormGroup({});
-
-  // updateMemberDetailsForm!:FormGroup;
 
   ageList:string[]=['<25','26-35','36-45','46-55','>55'];
   genderList:string[]=['female','male','other'];
@@ -36,8 +36,6 @@ export class MemberProfileComponent implements OnInit {
     { name: ' Long adventures - 2 weeks+'}
   ];
   locationList:string[]=[" Andalucía", " Aragón", " Canarias", " Cantabria", " Castilla y León", " Castilla-La Mancha", " Catalunya", " Ceuta", " Comunidad Valenciana", " Comunidad de Madrid", "Extremadura", "Galicia", "Islas Baleares", "La Rioja", "Melilla", "Navarra", "País Vasco", "Principado de Asturias", "Región de Murcia"]
-
-  
 
   get age() { return this.updateMemberDetailsForm.get('age') }
 
@@ -78,8 +76,6 @@ export class MemberProfileComponent implements OnInit {
     console.log(output);
   }
 
- 
-
   constructor(private authService: AuthService,
               private fb: FormBuilder) {}
 
@@ -88,6 +84,8 @@ export class MemberProfileComponent implements OnInit {
     if(this.member.nChildren){
       this.children=true;
     }
+
+    console.log(this.member.trip);
   }
 
   // ngOnChange(){
@@ -114,13 +112,16 @@ export class MemberProfileComponent implements OnInit {
       about:[this.member.about]
     })
   }
+
   updateMemberDetails(){
-
-    //removing position characteres from location
+    console.log('old location', this.locationOld);
     const valor=this.updateMemberDetailsForm.controls['location'].value;
-    const output=valor.substring(4);
-    this.updateMemberDetailsForm.controls['location'].setValue(output);
-
+    //removing position characteres from location if it has been changed
+    if(this.updateMemberDetailsForm.controls['location'].touched || !(this.locationOld===valor)){
+      const output=valor.substring(4);
+      this.updateMemberDetailsForm.controls['location'].setValue(output);
+    }
+    console.log('new location', valor)
     const { location, fName, lName, traveller, transport, age, gender, nChildren, aChildren, dog, trip, about } = this.updateMemberDetailsForm.value;
   
     const email = this.authService.member.email;
